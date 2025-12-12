@@ -5,7 +5,7 @@ const port = process.env.PORT;
 
 const route = require("./routes/route");
 
-app.get("/", route);
+app.use("/", route);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
