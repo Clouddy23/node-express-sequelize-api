@@ -1,3 +1,3 @@
-exports.hellowolrd = (req, res) => {
-  res.send("Hello Mathilde");
+exports.helloworld = (req, res) => {
+  res.send("Hello controller");
 };
