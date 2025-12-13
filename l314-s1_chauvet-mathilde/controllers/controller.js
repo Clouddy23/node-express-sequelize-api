@@ -1,7 +1,9 @@
 const { Users } = require("../models/index.js");
+
 exports.helloworld = (req, res) => {
   res.send("Hello controller");
 };
-exports.getUsers = (req, res) => {
-  res.send("Hello Mathilde");
+exports.getUsers = async (req, res) => {
+  // async toujours avec await
+  const users = await Users.findAll();
 };
