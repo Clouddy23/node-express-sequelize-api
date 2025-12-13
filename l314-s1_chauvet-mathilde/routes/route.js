@@ -6,6 +6,6 @@ const controller = require("../controllers/controller");
 router.get("/", controller.helloworld);
 
 // Ajout fonction pour récupérer users
-router.get("users", controller.getUsers);
+router.get("/users", controller.getUsers);
 
 module.exports = router;
