@@ -6,4 +6,6 @@ exports.helloworld = (req, res) => {
 exports.getUsers = async (req, res) => {
   // async toujours avec await
   const users = await Users.findAll();
+  // renvoyer les users en json//
+  res.json(users);
 };
