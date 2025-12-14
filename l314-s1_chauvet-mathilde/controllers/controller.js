@@ -118,3 +118,29 @@ exports.updateUser = async (req, res) => {
     });
   }
 };
+
+//------------------- Ajout de la fonction suppression d'un user via son id -------------------
+exports.deleteUser = async (req, res) => {
+  try {
+    const id = req.params.id;
+    if (!id) {
+      return res.status(400).json({ error: "ID absent." });
+    }
+
+    const user = await Users.findByPk(id);
+    if (!user) {
+      return res.status(404).json({ error: "User non trouvé." });
+    }
+
+    // Suppression user
+    await user.destroy();
+
+    // Renvoi code 200 succès
+    return res.status(200).json({ message: "User supprimé." });
+  } catch (error) {
+    console.error("Erreur lors de la suppression de l'user :", error);
+    return res.status(500).json({
+      error: "Une erreur est survenue lors de la suppression de l'user.",
+    });
+  }
+};
