@@ -17,10 +17,39 @@ exports.getUsers = async (req, res) => {
     // Log erreur serveur
     console.error("Erreur de récupération des users :", error);
     // renvoi erreur en JSON
-    return res
-      .status(500)
-      .json({
-        error: "Une erreur est survenue lors de la récupération des users.",
-      });
+    return res.status(500).json({
+      error: "Une erreur est survenue lors de la récupération des users.",
+    });
+  }
+};
+
+//------------------- Ajout de la fonction récupération d'un seul user via son id -------------------
+exports.getUserById = async (req, res) => {
+  try {
+    // Récupération de l'id dans paramètres de la requête
+    const userId = req.params.id;
+    // Si id absent
+    if (!userId) {
+      // Renvoi erreur 400 bad request
+      return res.status(400).json({ error: "ID absent." });
+    }
+
+    // Recherche user par id (PK Primary Key)
+    const user = await Users.findByPk(userId);
+    // Si id absent
+    if (!user) {
+      // Renvoi erreur 404 not found
+      return res.status(404).json({ error: "User non trouvé." });
+    }
+
+    // Si tout est ok, renvoi user en JSON avec code 200 succès
+    return res.status(200).json(user);
+  } catch (error) {
+    // Log erreur serveur
+    console.error("Erreur de récupération du user via son ID:", error);
+    // renvoi erreur en JSON
+    return res.status(500).json({
+      error: "Une erreur est survenue lors de la récupération du user.",
+    });
   }
 };
