@@ -31,4 +31,23 @@ describe("CRUD Users (Supertest + MySQL)", () => {
     expect(res.headers["content-type"]).toMatch(/json/);
     expect(Array.isArray(res.body)).toBe(true);
   });
+
+  // -------------------- RÉCUPÉRER 1 USER VIA SON ID --------------------
+  it("GET /users/:id -> Json response - status 200", async () => {
+    // Création d'un user pour être sûr d'avoir un id
+    const created = await models.Users.create({
+      firstname: "Test",
+      lastname: "User",
+    });
+
+    // Requête GET /users/:id
+    const res = await request(app)
+      .get(`/users/${created.id}`)
+      .set("Accept", "application/json");
+
+    // Vérifications
+    expect(res.statusCode).toBe(200);
+    expect(res.headers["content-type"]).toMatch(/json/);
+    expect(res.body).toHaveProperty("id", created.id);
+  });
 });
