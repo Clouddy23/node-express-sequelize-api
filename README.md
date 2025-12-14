@@ -39,7 +39,7 @@ Votre phase de test de l'exercice ne sera peut être pas fonctionnelle.
 
 ## Installation & Lancement API
 
-1. Se placer dans le bon dossier
+1. Se placer dans le bon dossier :
    Après le `git clone`, se mettre dans le dossier du projet Node :
    cd l314-s1_chauvet-mathilde
 
