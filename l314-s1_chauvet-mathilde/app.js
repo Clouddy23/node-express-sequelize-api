@@ -1,12 +1,10 @@
 require("dotenv").config({ quiet: true });
 const express = require("express");
 const app = express();
-const port = process.env.PORT;
 
 const route = require("./routes/route");
 
 app.use("/", route);
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
+//exporter l'app pour l'utiliser dans server.js et les tests
+module.exports = app;
