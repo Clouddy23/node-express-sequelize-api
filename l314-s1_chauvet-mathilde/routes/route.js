@@ -18,4 +18,7 @@ router.post("/users", controller.createUser);
 // Ajout de la fonction suppression d'un user via son id
 router.put("/users/:id", controller.updateUser);
 
+// Ajout de la fonction modification d'un user via son id
+router.delete("/users/:id", controller.deleteUser);
+
 module.exports = router;
