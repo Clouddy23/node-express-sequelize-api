@@ -2,6 +2,7 @@
 const request = require("supertest");
 const app = require("../app");
 
+// Test d'intégration / Endpoint API
 describe("Integration Tests for API Endpoints", () => {
   it("should respond with Hello World", async () => {
     const res = await request(app).get("/");
