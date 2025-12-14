@@ -81,3 +81,40 @@ exports.createUser = async (req, res) => {
     });
   }
 };
+
+//------------------- Ajout de la fonction modification d'un user via son id -------------------
+exports.updateUser = async (req, res) => {
+  try {
+    const id = req.params.id;
+    if (!id) {
+      return res.status(400).json({ error: "ID absent." });
+    }
+
+    const user = await Users.findByPk(id);
+    if (!user) {
+      return res.status(404).json({ error: "User non trouvé." });
+    }
+
+    const { firstname, lastname } = req.body;
+    if (!firstname && !lastname) {
+      return res.status(400).json({
+        error: "Indiquer nom ou prénom pour la mise à jour.",
+      });
+    }
+
+    // Mise à jour des champs
+    user.firstname = firstname || user.firstname;
+    user.lastname = lastname || user.lastname;
+
+    // Sauvegarde
+    await user.save();
+
+    // Renvoi user modifié code 200 succès
+    return res.status(200).json(user);
+  } catch (error) {
+    console.error("Erreur lors de la modification de l'user :", error);
+    return res.status(500).json({
+      error: "Une erreur est survenue lors de la modification de l'user.",
+    });
+  }
+};
