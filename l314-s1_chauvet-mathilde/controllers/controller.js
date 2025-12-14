@@ -27,15 +27,15 @@ exports.getUsers = async (req, res) => {
 exports.getUserById = async (req, res) => {
   try {
     // Récupération de l'id dans paramètres de la requête
-    const userId = req.params.id;
+    const id = req.params.id;
     // Si id absent
-    if (!userId) {
+    if (!id) {
       // Renvoi erreur 400 bad request
       return res.status(400).json({ error: "ID absent." });
     }
 
     // Recherche user par id (PK Primary Key)
-    const user = await Users.findByPk(userId);
+    const user = await Users.findByPk(id);
     // Si id absent
     if (!user) {
       // Renvoi erreur 404 not found
@@ -50,6 +50,34 @@ exports.getUserById = async (req, res) => {
     // renvoi erreur en JSON
     return res.status(500).json({
       error: "Une erreur est survenue lors de la récupération du user.",
+    });
+  }
+};
+
+//------------------- Ajout de la fonction création d'un user -------------------
+exports.createUser = async (req, res) => {
+  try {
+    // Récupération données du user du body de la requête
+    const { firstname, lastname } = req.body;
+
+    // Vérification champs obligatoires
+    if (!firstname || !lastname) {
+      return res.status(400).json({
+        error: "Le prénom et nom sont obligatoires.",
+      });
+    }
+
+    // Création nouvel user par sequelize
+    const newUser = await Users.create({ firstname, lastname });
+
+    // Renvoi code 201 Created
+    return res.status(201).json(newUser);
+  } catch (error) {
+    // Log erreur serveur
+    console.error("Erreur lors de la création de l'user :", error);
+    // renvoi erreur en JSON
+    return res.status(500).json({
+      error: "Une erreur est survenue lors de la création de l'user.",
     });
   }
 };
