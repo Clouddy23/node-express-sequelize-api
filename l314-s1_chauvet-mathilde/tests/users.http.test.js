@@ -18,7 +18,7 @@ afterAll(async () => {
 //-------------------- TESTS --------------------
 // Describe pour grouper les tests CRUD Users, comprends plusieurs it (cf cours)
 describe("CRUD Users (Supertest + MySQL)", () => {
-  // -------------------- RÉCUPÉRER TOUS LES USERS --------------------
+  // -------------------- TEST RÉCUPÉRATION DE TOUS LES USERS --------------------
   it("GET /users -> Json response - status 200", async () => {
     // Requête GET /users
     const res = await request(app)
@@ -32,7 +32,7 @@ describe("CRUD Users (Supertest + MySQL)", () => {
     expect(Array.isArray(res.body)).toBe(true);
   });
 
-  // -------------------- RÉCUPÉRER 1 USER VIA SON ID --------------------
+  // -------------------- TEST DE RÉCUPÉRATION D'UN USER VIA SON ID --------------------
   it("GET /users/:id -> Json response - status 200", async () => {
     // Création d'un user pour être sûr d'avoir un id
     const created = await models.Users.create({
@@ -49,5 +49,23 @@ describe("CRUD Users (Supertest + MySQL)", () => {
     expect(res.statusCode).toBe(200);
     expect(res.headers["content-type"]).toMatch(/json/);
     expect(res.body).toHaveProperty("id", created.id);
+  });
+
+  // -------------------- TEST DE CRÉATION 1 USER --------------------
+  it("POST /users -> Json response - status 201", async () => {
+    // Requête POST /users
+    const res = await request(app)
+      .post("/users")
+      .send({ firstname: "Stéphanie", lastname: "Marcellot" })
+      .set("Accept", "application/json");
+
+    // Vérifications code HTTP 201, JSON et body avec id, firstname, lastname, createdAt (auto) et updatedAt (auto)
+    expect(res.statusCode).toBe(201);
+    expect(res.headers["content-type"]).toMatch(/json/);
+    expect(res.body).toHaveProperty("id");
+    expect(res.body).toHaveProperty("firstname", "Jean");
+    expect(res.body).toHaveProperty("lastname", "Dupont");
+    expect(res.body).toHaveProperty("createdAt");
+    expect(res.body).toHaveProperty("updatedAt");
   });
 });
