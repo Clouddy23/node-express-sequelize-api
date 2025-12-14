@@ -1,6 +1,6 @@
 //Bonne manière pour du texte
 const request = require("supertest");
-const express = require("../app");
+const app = require("../app");
 
 describe("Integration Tests for API Endpoints", () => {
   it("should respond with Hello World", async () => {
