@@ -90,4 +90,22 @@ describe("CRUD Users (Supertest + MySQL)", () => {
     expect(res.body).toHaveProperty("firstname", "Lara");
     expect(res.body).toHaveProperty("updatedAt");
   });
+
+  // -------------------- TEST DE SUPPRESSION D'UN USER --------------------
+  it("DELETE /users/:id -> Json response - status 200", async () => {
+    const created = await models.Users.create({
+      firstname: "ToDelete",
+      lastname: "User",
+    });
+
+    // Requête DELETE /users/:id
+    const res = await request(app)
+      .delete(`/users/${created.id}`)
+      .set("Accept", "application/json");
+
+    // Vérifications code HTTP 200, JSON + message de confirmation
+    expect(res.statusCode).toBe(200);
+    expect(res.headers["content-type"]).toMatch(/json/);
+    expect(res.body).toEqual({ message: "User supprimé." });
+  });
 });
