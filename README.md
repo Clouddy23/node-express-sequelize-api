@@ -1,4 +1,4 @@
-# UEL314-S1_chauvet-mathilde
+# NODE-EXPRESS-SEQUELIZE API
 
 UE L314 — Semaine 1 — API Users (Express + Sequelize + MySQL)
 Initialisation projet - Développement Backend, création d'API avec NodeJs
