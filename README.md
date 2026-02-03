@@ -1,17 +1,9 @@
-# UEL314-S1_chauvet-mathilde
+# NODE-EXPRESS-SEQUELIZE API
 
-UE L314 — Semaine 1 — API Users (Express + Sequelize + MySQL)
+API Users (Express + Sequelize + MySQL)
 Initialisation projet - Développement Backend, création d'API avec NodeJs
 
 API Node.js (Express) utilisant Sequelize + MySQL permettant un CRUD sur la ressource `Users`.
-
-## Note importante concernant MySQL / .env
-
-De mon côté, le projet fonctionne avec ma configuration MySQL locale (CRUD OK et tests OK).
-
-Lors de tests sur une autre configuration, j’ai rencontré un problème de connexion MySQL dépendant de l’environnement, avec ce message :
-"SequelizeConnectionError: Plugin 'mysql_native_password' is not loaded"
-Votre phase de test de l'exercice ne sera peut être pas fonctionnelle.
 
 ## Technologies
 
@@ -20,6 +12,7 @@ Votre phase de test de l'exercice ne sera peut être pas fonctionnelle.
 - Sequelize
 - MySQL / mysql2
 - Jest / Supertest
+- Postman
 
 ## Fonctionnalités attendues (CRUD)
 
